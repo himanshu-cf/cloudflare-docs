@@ -112,12 +112,32 @@ meeting.ai.on("transcript", (data) => {
 Generates transcripts after the meeting ends using [Whisper Large v3 Turbo](/workers-ai/models/whisper-large-v3-turbo/). Transcripts from all participants are consolidated into a unified timeline and delivered via webhook or REST API.
 
 :::note
-Post-meeting transcription is currently in closed beta. If you are interested in this feature, contact your account team.
+Post-meeting transcription is in open beta.
 :::
+
+### Enable post-meeting transcription
+
+Set `transcribe_on_end: true` when [creating a meeting](/api/resources/realtime_kit/subresources/meetings/methods/create/):
+
+```json
+{
+	"title": "Team Standup",
+	"transcribe_on_end": true,
+	"ai_config": {
+		"transcription": {
+			"language": "en"
+		}
+	}
+}
+```
+
+Use `ai_config.transcription.language` to set the transcript language. If `transcribe_on_end` is not set, post-meeting transcription is disabled.
+
+The `transcribe_on_end` flag is a meeting-level setting. The participant preset flag `transcription_enabled` only applies to real-time transcription.
 
 ### Supported languages
 
-Supports all languages in [Whisper Large v3 Turbo](/workers-ai/models/whisper-large-v3-turbo/). Uses ISO 639-1 language codes.
+Supports all languages in [Whisper Large v3 Turbo](/workers-ai/models/whisper-large-v3-turbo/). Use ISO 639-1 language codes, such as `en`, `es`, or `fr`.
 
 ### Output formats
 
